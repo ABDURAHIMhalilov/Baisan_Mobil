@@ -66,6 +66,11 @@ const LoginPage = (props) => {
       console.log("connection type", state.type);
       console.log("is connected", state.isConnected);
       setIsConnected(state.isConnected);
+      if(state.isConnected === false) {
+        alert('check onternet connection')
+      } else {
+        console.log('good');
+      }
     });
     return () => {
       unsubscribe();
@@ -139,9 +144,9 @@ const LoginPage = (props) => {
       <Text style={{ marginTop: 30 }}>
         Status:
         {isConnected ? (
-          <Text style={{ color: "green" }}>onlayn</Text>
+          <Text style={{ color: "green" }}> onlayn</Text>
         ) : (
-          <Text style={{ color: "red" }}>offline</Text>
+          <Text style={{ color: "red" }}> offline</Text>
         )}
       </Text>
       {isLoading == true ? (
