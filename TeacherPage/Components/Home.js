@@ -21,7 +21,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { FontAwesome5, AntDesign } from "@expo/vector-icons";
+import {
+  FontAwesome5,
+  AntDesign,
+  MaterialIcons,
+  Entypo,
+} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import YoutubeIframe from "react-native-youtube-iframe";
@@ -1412,6 +1417,10 @@ const ViewPage2 = (props) => {
   const posted2 = async (key) => {
     await AsyncStorage.setItem("keyCategorys", JSON.stringify(key));
   };
+
+  const deleteData = async () => {
+    alert(`Are you sure you want to delete`);
+  };
   return (
     <ScrollView
       refreshControl={
@@ -1477,21 +1486,33 @@ const ViewPage2 = (props) => {
                   <View
                     style={{
                       width: "100%",
-                      height: 40,
+                      // height: 40,
                       backgroundColor: "dodgerblue",
                       flexDirection: "row",
-                      justifyContent: "center",
+                      justifyContent: "space-between",
                       alignItems: "center",
+                      paddingHorizontal: 10,
+                      paddingVertical: 10,
                     }}
                   >
                     <Text style={{ fontSize: 20, color: "white" }}>
                       {item.name}
                     </Text>
+                    <MaterialIcons
+                      name="delete"
+                      size={28}
+                      onPress={() => deleteData(item.id)}
+                      color="red"
+                    />
                   </View>
                 </TouchableOpacity>
               );
             })}
           </View>
+          <Button
+            title="Add Category"
+            onPress={() => navigation.navigate("postCategory")}
+          />
         </View>
       )}
     </ScrollView>
@@ -1500,6 +1521,7 @@ const ViewPage2 = (props) => {
 
 const AddTheme = ({ navigation }) => {
   const [state, setstate] = useState();
+  const [image, setImage] = useState(null);
   useEffect(() => {
     const getKey = async () => {
       const courseId2 = await AsyncStorage.getItem("courseId");
@@ -1535,14 +1557,68 @@ const AddTheme = ({ navigation }) => {
       });
   };
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      // aspect: [4, 3],s
+      quality: 1,
+    });
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
-    <View>
-      <TextInput placeholder="Name" />
-      <TextInput placeholder="Content" />
-      <Text>IMage</Text>
-      <TextInput placeholder="linkYoutube" />
-      <TextInput placeholder="extra_data" />
+    <ScrollView style={{ padding: 10 }}>
+      <TextInput
+        placeholder="Name"
+        style={{
+          width: "100%",
+          paddingVertical: 4,
+          paddingHorizontal: 6,
+          borderWidth: 1,
+          marginBottom: 10,
+        }}
+      />
+      <TextInput
+        placeholder="Content"
+        style={{
+          width: "100%",
+          paddingVertical: 4,
+          paddingHorizontal: 6,
+          borderWidth: 1,
+          marginBottom: 10,
+        }}
+      />
+      <Pressable
+        style={{
+          width: "100%",
+          paddingVertical: 10,
+          paddingHorizontal: 6,
+          borderWidth: 1,
+          marginBottom: 10,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+        onPress={pickImage}
+      >
+        <Text style={{ color: "gray" }}>IMage</Text>
+        <Entypo name="upload" size={22} color="black" />
+      </Pressable>
+      <TextInput
+        placeholder="extra_data"
+        style={{
+          width: "100%",
+          paddingVertical: 4,
+          paddingHorizontal: 6,
+          borderWidth: 1,
+          marginBottom: 10,
+        }}
+      />
       <Button title="post" onPress={postData} />
-    </View>
+    </ScrollView>
   );
 };

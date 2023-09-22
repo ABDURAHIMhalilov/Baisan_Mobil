@@ -18,7 +18,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name='TeacherPanel' component={TeacherPanel} />
       </Stack.Navigator>
       <StatusBar style='auto' />
-    </NavigationContainer>
+    </NavigationContainer> 
   );
 }
 
