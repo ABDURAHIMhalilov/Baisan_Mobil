@@ -51,7 +51,7 @@ const CustomDrawer = (props) => {
                 }}
               >
                 <FontAwesome5 name="user-circle" size={18} color={"white"} />
-                <Text style={{ marginLeft: 10, color: "white" }}>Teacher</Text>
+                <Text style={{ marginLeft: 10, color: "white" }}>Student</Text>
               </View>
               {item.image ? (
                 <Image

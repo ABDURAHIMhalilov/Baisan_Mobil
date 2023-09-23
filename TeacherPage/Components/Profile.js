@@ -27,6 +27,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import Carts from "./Carts";
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -652,7 +653,7 @@ export default function Profile(props) {
             ),
             headerRight: () => {
               return (
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Image
                     source={require("../../img/signal-2023-06-09-165727_003.png")}
                     style={{ width: 90, height: 90, marginRight: 10 }}
@@ -698,6 +699,32 @@ export default function Profile(props) {
         <Drawer.Screen
           name="Help"
           component={HelpScreen}
+          options={{
+            drawerIcon: ({ focused }) =>
+              focused ? (
+                <Entypo name="help-with-circle" size={24} color="black" />
+              ) : (
+                <Feather name="help-circle" size={24} color="black" />
+              ),
+            headerRight: () => {
+              return (
+                <MaterialIcons
+                  name="logout"
+                  size={30}
+                  color={"#000"}
+                  style={{ marginRight: 10 }}
+                  onPress={() => {
+                    AsyncStorage.clear();
+                    props.navigation.navigate("LoginPage");
+                  }}
+                />
+              );
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="Carts"
+          component={Carts}
           options={{
             drawerIcon: ({ focused }) =>
               focused ? (
