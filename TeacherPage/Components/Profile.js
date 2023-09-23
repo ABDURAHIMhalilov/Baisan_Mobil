@@ -22,6 +22,7 @@ import CustomDrawer from "./CustomDrawer";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import HelpScreen from "./HelpSreen";
 import {
+  AntDesign,
   Entypo,
   Feather,
   MaterialCommunityIcons,
@@ -728,9 +729,9 @@ export default function Profile(props) {
           options={{
             drawerIcon: ({ focused }) =>
               focused ? (
-                <Entypo name="help-with-circle" size={24} color="black" />
+                <AntDesign name="creditcard" size={24} color="black" />
               ) : (
-                <Feather name="help-circle" size={24} color="black" />
+                <AntDesign name="creditcard" size={24} color="black" />
               ),
             headerRight: () => {
               return (
